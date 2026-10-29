@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controller">
+    <ComboBox fx:id="languageSelector" onAction="#changeLanguage" />
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="%temperature.label" />
+        <TextField fx:id="tempField" />
+    </HBox>
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="%speed.label" />
+        <TextField fx:id="speedField" />
+    </HBox>
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="%distance.label" />
+        <TextField fx:id="distanceField" />
+    </HBox>
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="%time.label" />
+        <TextField fx:id="timeField" />
+    </HBox>
+    <Button text="%convert.button" onAction="#handleConvertAndSave" />
+    <Label fx:id="resultLabel" text="%result.label" />
+</VBox>

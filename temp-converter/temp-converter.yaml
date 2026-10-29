@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: temp-converter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: temp-converter
+  template:
+    metadata:
+      labels:
+        app: temp-converter
+    spec:
+      containers:
+      - name: temp-converter
+        image: OMANIMI/temp-converter:latest
+        env:
+        - name: DISPLAY
+          value: "host.docker.internal:0" 
