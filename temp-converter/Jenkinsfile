@@ -6,12 +6,16 @@ pipeline {
     stages {
         stage('Build & Test') { 
             steps { 
-                sh 'mvn clean test jacoco:report' 
+                dir('temp-converter') {
+                    sh 'mvn clean test jacoco:report' 
+                }
             } 
         }
         stage('Docker Build') { 
             steps { 
-                sh 'docker build -t $IMAGE:latest .' 
+                dir('temp-converter') {
+                    sh 'docker build -t $IMAGE:latest .' 
+                }
             } 
         }
         stage('Push to Docker Hub') {
