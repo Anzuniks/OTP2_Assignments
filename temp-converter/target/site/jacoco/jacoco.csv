@@ -1,0 +1,9 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+temp-converter,com.example.model,TemperatureConverter,3,52,0,8,1,9,1,6,1,1
+temp-converter,com.example.dao,ConversionHistoryDAO,6,116,0,2,4,28,0,4,0,3
+temp-converter,com.example.dao,UnitDAO,3,53,0,2,2,15,0,3,0,2
+temp-converter,com.example,DbService,68,0,0,0,17,0,2,0,2,0
+temp-converter,com.example,TempConverter,3,8,0,0,1,1,1,1,1,1
+temp-converter,com.example,Controller,161,0,9,0,32,0,10,0,4,0
+temp-converter,com.example,MainApp,42,0,0,0,10,0,3,0,3,0
+temp-converter,com.example,Launcher,6,0,0,0,3,0,2,0,2,0

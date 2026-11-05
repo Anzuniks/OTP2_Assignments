@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UnitDAO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">temp-converter</a> &gt; <a href="index.source.html" class="el_package">com.example.dao</a> &gt; <span class="el_source">UnitDAO.java</span></div><h1>UnitDAO.java</h1><pre class="source lang-java linenums">package com.example.dao;
+
+import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
+
+public class UnitDAO {
+    private final String dbUrl;
+    private final String dbUser;
+    private final String dbPass;
+
+<span class="fc" id="L12">    public UnitDAO(String dbUrl, String dbUser, String dbPass) {</span>
+<span class="fc" id="L13">        this.dbUrl = dbUrl;</span>
+<span class="fc" id="L14">        this.dbUser = dbUser;</span>
+<span class="fc" id="L15">        this.dbPass = dbPass;</span>
+<span class="fc" id="L16">    }</span>
+
+    public Map&lt;String, String&gt; getLocalizedUnits(String lang) {
+<span class="fc" id="L19">        Map&lt;String, String&gt; units = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L20">        String sql = &quot;SELECT u.unit_key, COALESCE(ut_lang.name, ut_en.name) AS name &quot; +</span>
+                     &quot;FROM unit u &quot; +
+                     &quot;LEFT JOIN unit_translation ut_en ON u.id = ut_en.unit_id AND ut_en.lang = 'en' &quot; +
+                     &quot;LEFT JOIN unit_translation ut_lang ON u.id = ut_lang.unit_id AND ut_lang.lang = ?;&quot;;
+
+<span class="fc" id="L25">        try (Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPass);</span>
+<span class="fc" id="L26">             PreparedStatement pstmt = conn.prepareStatement(sql)) {</span>
+            
+<span class="fc" id="L28">            pstmt.setString(1, lang);</span>
+<span class="fc" id="L29">            ResultSet rs = pstmt.executeQuery();</span>
+            
+<span class="fc bfc" id="L31" title="All 2 branches covered.">            while (rs.next()) {</span>
+<span class="fc" id="L32">                units.put(rs.getString(&quot;unit_key&quot;), rs.getString(&quot;name&quot;));</span>
+            }
+<span class="nc" id="L34">        } catch (SQLException e) {</span>
+<span class="nc" id="L35">            e.printStackTrace();</span>
+<span class="fc" id="L36">        }</span>
+<span class="fc" id="L37">        return units;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: temp-converter
-        image: OMANIMI/temp-converter:latest
+        image: anzuniks/temp-converter:latest
         env:
         - name: DISPLAY
           value: "host.docker.internal:0" 

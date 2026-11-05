@@ -3,3 +3,6 @@
 /home/andunkali/IdeaProjects/OTP2_Assignments/temp-converter/src/main/java/com/example/Launcher.java
 /home/andunkali/IdeaProjects/OTP2_Assignments/temp-converter/src/main/java/com/example/MainApp.java
 /home/andunkali/IdeaProjects/OTP2_Assignments/temp-converter/src/main/java/com/example/TempConverter.java
+/home/andunkali/IdeaProjects/OTP2_Assignments/temp-converter/src/main/java/com/example/dao/ConversionHistoryDAO.java
+/home/andunkali/IdeaProjects/OTP2_Assignments/temp-converter/src/main/java/com/example/dao/UnitDAO.java
+/home/andunkali/IdeaProjects/OTP2_Assignments/temp-converter/src/main/java/com/example/model/TemperatureConverter.java
