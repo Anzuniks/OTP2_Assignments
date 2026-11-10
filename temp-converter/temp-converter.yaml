@@ -17,4 +17,4 @@ spec:
         image: anzuniks/temp-converter:latest
         env:
         - name: DISPLAY
-          value: "host.docker.internal:0" 
+          value: "host.docker.internal:0"

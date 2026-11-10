@@ -1,8 +1,8 @@
-com/example/model/TemperatureConverter.class
-com/example/dao/ConversionHistoryDAO.class
-com/example/DbService.class
-com/example/Controller.class
-com/example/dao/UnitDAO.class
-com/example/Launcher.class
-com/example/TempConverter.class
-com/example/MainApp.class
+com\example\MainApp.class
+com\example\TempConverter.class
+com\example\model\TemperatureConverter.class
+com\example\dao\ConversionHistoryDAO.class
+com\example\dao\UnitDAO.class
+com\example\Launcher.class
+com\example\Controller.class
+com\example\DbService.class

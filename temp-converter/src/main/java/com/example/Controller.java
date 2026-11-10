@@ -15,11 +15,17 @@ public class Controller {
     @FXML private Label resultLabel;
     
     private ResourceBundle bundle;
-    private DbService dbService = new DbService();
+    private Locale locale = Locale.ENGLISH;
+    private final DbService dbService = new DbService();
 
     @FXML
     public void initialize() {
         languageSelector.getItems().addAll("English", "Finnish", "Swedish", "Japanese", "Arabic");
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+        this.bundle = ResourceBundle.getBundle("messages", locale);
     }
 
     @FXML
@@ -39,6 +45,7 @@ public class Controller {
         bundle = ResourceBundle.getBundle("messages", locale);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view.fxml"), bundle);
         Scene scene = new Scene(loader.load(), 400, 350);
+        loader.<Controller>getController().setLocale(locale);
         
         scene.setNodeOrientation(langCode.equals("ar") ? NodeOrientation.RIGHT_TO_LEFT : NodeOrientation.LEFT_TO_RIGHT);
         
@@ -51,16 +58,10 @@ public class Controller {
         try {
             double tempC = Double.parseDouble(tempField.getText());
             double tempF = TempConverter.celsiusToFahrenheit(tempC);
-            bundle = ResourceBundle.getBundle("messages", Locale.getDefault());
             resultLabel.setText(bundle.getString("result.label") + " " + tempF + " F");
-
-            double speed = Double.parseDouble(speedField.getText());
-            double distance = Double.parseDouble(distanceField.getText());
-            double time = Double.parseDouble(timeField.getText());
-            
-            dbService.saveMeasurement(1, speed, distance, time);
+            dbService.saveConversion(tempC, "Celsius", "Fahrenheit", tempF, locale.getLanguage());
         } catch (NumberFormatException e) {
-            resultLabel.setText("Invalid input");
+            resultLabel.setText(bundle.getString("invalid.input"));
         }
     }
 }

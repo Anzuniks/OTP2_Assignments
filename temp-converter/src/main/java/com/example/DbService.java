@@ -3,24 +3,40 @@ package com.example;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DbService {
-    private String url = System.getenv().getOrDefault("DB_URL", "jdbc:mysql://localhost:3306/trip_db");
-    private String user = System.getenv().getOrDefault("DB_USER", "root");
-    private String pass = System.getenv().getOrDefault("DB_PASS", "password");
+    private static final Logger LOGGER = Logger.getLogger(DbService.class.getName());
+    private final String url = setting("DB_URL", "jdbc:mariadb://localhost:3306/converterdb");
+    private final String user = setting("DB_USER", "root");
+    private final String pass = setting("DB_PASS", "root");
 
-    public void saveMeasurement(int journeyId, double speed, double distance, double time) {
-        String sql = "INSERT INTO measurement (journey_id, speed, distance, time) VALUES (?, ?, ?, ?)";
+    private static String setting(String name, String defaultValue) {
+        String value = System.getProperty(name);
+        if (value == null || value.isBlank()) {
+            value = System.getenv(name);
+        }
+        return value == null || value.isBlank() ? defaultValue : value;
+    }
+
+    public boolean saveConversion(double valueFrom, String fromUnit, String toUnit,
+                                  double result, String lang) {
+        String sql = "INSERT INTO conversion_history " +
+                "(value_from, from_unit, to_unit, result, lang) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DriverManager.getConnection(url, user, pass);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, journeyId);
-            pstmt.setDouble(2, speed);
-            pstmt.setDouble(3, distance);
-            pstmt.setDouble(4, time);
+            pstmt.setDouble(1, valueFrom);
+            pstmt.setString(2, fromUnit);
+            pstmt.setString(3, toUnit);
+            pstmt.setDouble(4, result);
+            pstmt.setString(5, lang);
             pstmt.executeUpdate();
-            System.out.println("Saved to DB");
-        } catch (Exception e) {
-            System.err.println("DB Error: " + e.getMessage());
+            return true;
+        } catch (SQLException e) {
+            LOGGER.log(Level.WARNING, "Could not save conversion to MariaDB", e);
+            return false;
         }
     }
 }
